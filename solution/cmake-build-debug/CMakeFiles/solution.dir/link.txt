@@ -1,0 +1,1 @@
+/usr/bin/g++   -std=c++11 -g    CMakeFiles/solution.dir/0000-0099/0001.Two_Sum/Solution.cpp.o  -o solution -rdynamic 

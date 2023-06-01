@@ -29,4 +29,8 @@
 # Executables
 *.exe
 *.out
-*.app
+# *.app
+
+# user-defined
+.idea
+cmake-build-debug/*
