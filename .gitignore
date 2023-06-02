@@ -33,4 +33,5 @@
 
 # user-defined
 .idea
-cmake-build-debug/*
+solution/cmake-build-debug
+__pycache__
