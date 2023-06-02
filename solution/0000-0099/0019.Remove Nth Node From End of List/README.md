@@ -50,7 +50,13 @@
 ## 解法
 
 <!-- 这里可写通用的实现逻辑 -->
+**方法一：快慢指针**
 
+定义两个指针 `fast` 和 `slow`，初始时都指向链表的虚拟头结点 `dummy`。
+
+接着 `fast` 指针先向前移动 $n$ 步，然后 `fast` 和 `slow` 指针同时向前移动，直到 `fast` 指针到达链表的末尾。此时 `slow.next` 指针指向的结点就是倒数第 `n` 个结点的前驱结点，将其删除即可。
+
+时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为链表的长度。
 <!-- tabs:start -->
 
 ### **Python3**
@@ -72,7 +78,23 @@
 ### **C++**
 
 ```cpp
-
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* fast = dummy;
+        ListNode* slow = dummy;
+        while (n--) {
+            fast = fast->next;
+        }
+        while (fast->next) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        slow->next = slow->next->next;
+        return dummy->next;
+    }
+};
 ```
 
 ### **Go**
