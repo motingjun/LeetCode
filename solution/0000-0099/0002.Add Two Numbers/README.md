@@ -50,6 +50,15 @@
 ## 解法
 
 <!-- 这里可写通用的实现逻辑 -->
+**方法一：模拟**
+
+我们同时遍历两个链表 $l_1$ 和 $l_2$，并使用变量 $carry$ 表示当前是否有进位。
+
+每次遍历时，我们取出对应链表的当前位，计算它们与进位 $carry$ 的和，然后更新进位的值，最后将当前位的值加入答案链表。如果两个链表都遍历完了，并且进位为 $0$ 时，遍历结束。
+
+最后我们返回答案链表的头节点即可。
+
+时间复杂度 $O(max(m, n))$，其中 $m$ 和 $n$ 分别为两个链表的长度。我们需要遍历两个链表的全部位置，而处理每个位置只需要 $O(1)$ 的时间。忽略答案的空间消耗，空间复杂度 $O(1)$。
 
 <!-- tabs:start -->
 
@@ -72,7 +81,23 @@
 ### **C++**
 
 ```cpp
-
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* dummy = new ListNode(0);
+        int carry = 0;
+        ListNode* cur = dummy;
+        while (l1 || l2 || carry) {
+            int s = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
+            carry = s / 10;
+            cur->next = new ListNode(s % 10);
+            cur = cur->next;
+            l1 = l1 ? l1->next : nullptr;
+            l2 = l2 ? l2->next : nullptr;
+        }
+        return dummy->next;
+    }
+};
 ```
 
 ### **Go**
