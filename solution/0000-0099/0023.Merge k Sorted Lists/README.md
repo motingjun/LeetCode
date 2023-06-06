@@ -56,6 +56,16 @@
 
 <!-- 这里可写通用的实现逻辑 -->
 
+**朴素解法：**
+
+合并前后两个链表，结果放在后一个链表位置上，依次循环下去。最后返回链表数组的最后一个元素。
+
+**分而治之：**
+
+多个链表合并复杂，若只有两个或一个链表时，那么就如同 [21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/) 一样。
+
+与归并排序同思路，不断拆散，最终合并即可。
+
 <!-- tabs:start -->
 
 ### **Python3**
@@ -77,7 +87,42 @@
 ### **C++**
 
 ```cpp
-
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        int n = lists.size();
+        if (n == 0) return nullptr;
+        for (int i = 1; i < n; ++i) lists[i] = mergeTwoLists(lists[i - 1], lists[i]);
+        return lists[n - 1];
+    }
+private:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* dummy = new ListNode();
+        ListNode* cur = dummy;
+        while (l1 && l2) {
+            if (l1->val <= l2->val) {
+                cur->next = l1;
+                l1 = l1->next;
+            } else {
+                cur->next = l2;
+                l2 = l2->next;
+            }
+            cur = cur->next;
+        }
+        cur->next = l1 ? l1 : l2;
+        return dummy->next;
+    }
+};
 ```
 
 ### **Go**
