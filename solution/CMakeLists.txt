@@ -7,5 +7,8 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 
 # 0000-0099
 #add_executable(solution "0000-0099/0001.Two Sum/Solution.cpp")
-add_executable(solution, "0000-0099/0002.Add Two Numbers/Solution.cpp")
+
+## 链表
+#add_executable(solution, "0000-0099/0002.Add Two Numbers/Solution.cpp")
 #add_executable(solution "0000-0099/0019.Remove Nth Node From End of List/Solution.cpp")
+add_executable(solution, "0000-0099/0021.Merge Two Sorted Lists/Solution.cpp")
