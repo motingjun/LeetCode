@@ -45,6 +45,16 @@
 
 <!-- 这里可写通用的实现逻辑 -->
 
+**方法一：迭代**
+
+设置虚拟头节点 dummy，pre 指针初始指向 dummy，遍历链表，每次交换 pre 后面的两个节点即可。
+
+时间复杂度为 $O(n)$，空间复杂度为 $O(1)$，其中 $n$ 是链表的长度。
+
+**方法二：递归**
+
+时间复杂度为 $O(n)$，空间复杂度为 $O(n)$，其中 $n$ 是链表的长度。
+
 <!-- tabs:start -->
 
 ### **Python3**
@@ -66,7 +76,55 @@
 ### **C++**
 
 ```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode* dummy = new ListNode(0, head);
+        ListNode *pre = dummy, *cur = head;
+        while (cur != nullptr && cur->next != nullptr) {
+            ListNode* t = cur->next;
+            cur->next = t->next;
+            t->next = cur;
+            pre->next = t;
+            pre = cur;
+            cur = cur->next;
+        }
+        return dummy->next;
+    }
+};
+```
 
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return head;
+        ListNode* newHead = head->next;
+        head->next = swapPairs(newHead->next);
+        newHead->next = head;
+        return newHead;
+    }
+};
 ```
 
 ### **Go**
