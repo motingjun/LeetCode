@@ -1,4 +1,8 @@
- // Definition for singly-linked list.
+#include <iostream>
+
+using namespace std;
+
+// Definition for singly-linked list.
  struct ListNode {
      int val;
      ListNode *next;
@@ -27,5 +31,17 @@ public:
 };
 
 int main() {
+    ListNode* l1 = new ListNode(2);
+    l1->next = new ListNode(4);
+    l1->next->next = new ListNode(3);
+    ListNode* l2 = new ListNode(5);
+    l2->next = new ListNode(6);
+    l2->next->next = new ListNode(4);
+
+    ListNode* newList = Solution().addTwoNumbers(l1,l2);
+    while (newList) {
+        cout << "newList head : " << newList->val << endl;
+        newList = newList->next;
+    }
     return 0;
 }
